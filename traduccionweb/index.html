@@ -21,7 +21,11 @@
   // Función para traducir el texto
   async function translateText(text) {
     const { TranslationServiceClient } = require('@google-cloud/translate');
-    const translationClient = new TranslationServiceClient({ credentials: private_key: 'AIzaSyAgIVWMPeEmiIyt1QsVk-gBfvFCL7VwSY4' });
+    const translationClient = new TranslationServiceClient({ 
+    credentials: {
+    api_key: 'AIzaSyAgIVWMPeEmiIyt1QsVk-gBfvFCL7VwSY4'
+  } 
+});
 
     const request = {
       parent: `projects/${projectId}/locations/global`,
