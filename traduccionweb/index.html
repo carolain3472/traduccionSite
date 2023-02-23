@@ -15,16 +15,15 @@
   <p>Este es un ejemplo de texto en un idioma que no es hindi</p>
 
 
-<script>
-  src="https://cdn.jsdelivr.net/npm/@google-cloud/translate"
-  
+<script type="module">
+  import { TranslationServiceClient } from 'https://cdn.jsdelivr.net/npm/@google-cloud/translate@2.7.0/build/src/index.js';
+
   const projectId = 'winter-bloom-378603'; // Reemplaza esto con tu proyecto ID
   const targetLanguage = 'hi';
 
   // Función para traducir el texto
   async function translateText(text) {
-    
-    import { TranslationServiceClient } from '@google-cloud/translate';
+
     const translationClient = new TranslationServiceClient();
 
     const request = {
@@ -78,6 +77,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
