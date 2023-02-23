@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from google.cloud import translate_v2 as translate
 
-translate_client = translate.Client.from_service_account_json('ruta/al/archivo/de/clave-api.json')
+translate_client = translate.Client.from_api_key('AIzaSyBYKa3s4NaaaDwy8r9xLwQM7OBmL97zdlU')
+
 
 
 app = Flask(__name__)
