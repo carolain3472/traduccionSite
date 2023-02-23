@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   
+  <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://unpkg.com/@google-cloud/translate"></script>
 
 </head>
@@ -20,7 +21,8 @@
 
   // Función para traducir el texto
   async function translateText(text) {
-    const { TranslationServiceClient } = require('@google-cloud/translate');
+    
+    const TranslationServiceClient = google.cloud.translate.v3.TranslationServiceClient;
     const translationClient = new TranslationServiceClient({ 
     credentials: {
     api_key: 'AIzaSyAgIVWMPeEmiIyt1QsVk-gBfvFCL7VwSY4'
