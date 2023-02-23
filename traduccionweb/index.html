@@ -5,69 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  
+  <script src="https://unpkg.com/@google-cloud/translate"></script>
+
 </head>
 <body>
   <h1>Bienvenido a mi sitio web</h1>
   <p>Este es un ejemplo de texto en un idioma que no es hindi</p>
 
-  <script src="https://cdn.jsdelivr.net/npm/@google-cloud/translate"></script>
-  <script>
-    const projectId = 'winter-bloom-378603'; // Reemplaza esto con tu proyecto ID
-    const translationClient = new TranslationServiceClient();
-    const targetLanguage = 'hi';
+<script src="https://cdn.jsdelivr.net/npm/@google-cloud/translate"></script>
+<script>
+  const projectId = 'winter-bloom-378603'; // Reemplaza esto con tu proyecto ID
+  const targetLanguage = 'hi';
 
-    // Función para traducir el texto
-    async function translateText(text) {
-      const request = {
-        parent: `projects/${projectId}/locations/global`,
-        contents: [text],
-        mimeType: 'text/plain',
-        sourceLanguageCode: 'auto',
-        targetLanguageCode: targetLanguage,
-      };
+  // Función para traducir el texto
+  async function translateText(text) {
+    const { TranslationServiceClient } = require('@google-cloud/translate');
+    const translationClient = new TranslationServiceClient({ credentials: private_key: 'AIzaSyAgIVWMPeEmiIyt1QsVk-gBfvFCL7VwSY4' });
 
-      const [response] = await translationClient.translateText(request);
-      return response.translations[0].translatedText;
+    const request = {
+      parent: `projects/${projectId}/locations/global`,
+      contents: [text],
+      mimeType: 'text/plain',
+      sourceLanguageCode: 'auto',
+      targetLanguageCode: targetLanguage,
+    };
+
+    const [response] = await translationClient.translateText(request);
+    return response.translations[0].translatedText;
+  }
+
+  // Traducir todo el contenido al cargar la página
+  document.addEventListener('DOMContentLoaded', async function() {
+    const elements = document.querySelectorAll('body, body *');
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      const text = element.innerText.trim();
+      if (text) {
+        const translatedText = await translateText(text);
+        element.innerText = translatedText;
+      }
     }
+  });
 
-    // Traducir todo el contenido al cargar la página
-    document.addEventListener('DOMContentLoaded', async function() {
-      const elements = document.querySelectorAll('body, body *');
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        const text = element.innerText.trim();
-        if (text) {
-          const translatedText = await translateText(text);
-          element.innerText = translatedText;
-        }
+  // Traducir de nuevo al recargar la página
+  window.addEventListener('unload', async function() {
+    const elements = document.querySelectorAll('body, body *');
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      const text = element.innerText.trim();
+      if (text) {
+        const translatedText = await translateText(text);
+        element.innerText = translatedText;
       }
-    });
+    }
+  });
 
-    // Traducir de nuevo al recargar la página
-    window.addEventListener('unload', async function() {
-      const elements = document.querySelectorAll('body, body *');
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        const text = element.innerText.trim();
-        if (text) {
-          const translatedText = await translateText(text);
-          element.innerText = translatedText;
-        }
+  // Traducir al regresar a la página
+  window.addEventListener('pageshow', async function() {
+    const elements = document.querySelectorAll('body, body *');
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      const text = element.innerText.trim();
+      if (text) {
+        const translatedText = await translateText(text);
+        element.innerText = translatedText;
       }
-    });
+    }
+  });
+</script>
 
-    // Traducir al regresar a la página
-    window.addEventListener('pageshow', async function() {
-      const elements = document.querySelectorAll('body, body *');
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        const text = element.innerText.trim();
-        if (text) {
-          const translatedText = await translateText(text);
-          element.innerText = translatedText;
-        }
-      }
-    });
-  </script>
 </body>
 </html>
