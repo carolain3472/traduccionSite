@@ -1,3 +1,0 @@
-google-cloud-translate
-Flask
-Flask-WTF==2.0.1
