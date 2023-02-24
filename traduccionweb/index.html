@@ -4,23 +4,28 @@
   <meta charset="UTF-8">
   <title>My Website</title>
   
-  <script src="/translate.js"></script>
-
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  
-  
- <script>
-  function googleTranslateElementInit() {
-   new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'hi', autoDisplay: true}, 'google_translate_element');
-}
-
-</script>
-  
+ <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'hi,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === "childList") {
+                        if (document.getElementById('google_translate_element').querySelector('.goog-te-banner-frame')) {
+                            document.getElementById('google_translate_element').querySelector('.goog-te-banner-frame').style.display = 'none';
+                            document.getElementById('google_translate_element').querySelector('.goog-te-menu-value span:first-child').textContent = 'हिन्दी'; // Cambiar el texto del idioma de destino
+                        }
+                    }
+                });
+            });
+            observer.observe(document.body, {childList: true});
+        }
+    </script>
   
 </head>
 <body>
-  <div id="google_translate_element"></div>
   <h1>Welcome to my website!</h1>
   <p>This is the English version of my website.</p>
+  <div id="google_translate_element"></div>
 </body>
 </html>
