@@ -1,11 +1,13 @@
-function translatePage() {
-  const pageHtml = document.documentElement.outerHTML;
+const fetch = require('node-fetch');
+
+exports.handler = async function (event, context) {
+  const pageHtml = event.body;
   const langCode = 'hi';
-  const apiKey = 'AIzaSyBYKa3s4NaaaDwy8r9xLwQM7OBmL97zdlU';
+  const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
 
   const apiUrl = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
 
-  fetch(apiUrl, {
+  const response = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -14,13 +16,17 @@ function translatePage() {
       q: pageHtml,
       target: langCode,
     }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const translatedHtml = data.data.translations[0].translatedText;
-      document.documentElement.innerHTML = translatedHtml;
-    })
-    .catch((error) => console.error(error));
-}
+  });
 
-translatePage();
+  const data = await response.json();
+
+  const translatedHtml = data.data.translations[0].translatedText;
+
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'text/html',
+    },
+    body: translatedHtml,
+  };
+};
