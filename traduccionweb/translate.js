@@ -1,7 +1,7 @@
 function translatePage() {
   const pageHtml = document.documentElement.outerHTML;
   const langCode = 'hi';
-  const apiKey = 'TU_CLAVE_API_DE_GOOGLE_TRANSLATE';
+  const apiKey = 'AIzaSyBYKa3s4NaaaDwy8r9xLwQM7OBmL97zdlU';
 
   const apiUrl = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
 
